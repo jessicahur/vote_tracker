@@ -1,7 +1,5 @@
-function mylog(v) { divStats.innerHTML += (v + "<br>"); }
 
 function resetImgs() {
-  idxSelect = -99;
   voteAllowed = true;
   imgLeftE.className  = "imgNormal";
   imgRightE.className = "imgNormal";
@@ -9,22 +7,28 @@ function resetImgs() {
 
 function resetPool() { // Once all images have been shown, start over
   resetImgs();
-   // Slice() forces copy by value (doesn't just create a reference)
-  fnPool  = img_fn.slice();
-  idxPool = img_idx.slice();
+  // Slice() forces copy by value (doesn't just create a reference)
   if (myChartObj) { delete myChartObj; }
+}
+/*working_array = [];
+
+fnPool  = working_array.slice();
+
+img_fn = ["blueMarinatedTurkey.jpg", "condimentSprays.jpg", "cornDogs.jpg", "cranberryCandles.jpg", "frozenShrimp.jpg", "frozenWhatAreThese.jpg", "heatedSoda.jpg", "jelloMayoTurkey.jpg", "pastaOnionsCandy.jpg", "whipcreamSoup.jpg"];
+
+function img_obj (img_name, vote) {
+  this.img_name = img_name;
+  this.vote = vote;
+}
+working_array = [];
+for (var jj=0; jj < img_fn.length; jj++) {
+
+  var vote = getRandIntOnRange(2, 50);
+  working_array.push(new img_obj(img_fn[jj], vote));
+  console.log(working_array);
 }
 
 function global_init() {
-  // Don't use "var" in this function; we need to init global vars
-
-  img_fn = ["blueMarinatedTurkey.jpg", "condimentSprays.jpg", "cornDogs.jpg", "cranberryCandles.jpg", "frozenShrimp.jpg", "frozenWhatAreThese.jpg", "heatedSoda.jpg", "jelloMayoTurkey.jpg", "pastaOnionsCandy.jpg", "whipcreamSoup.jpg"];
-  // Only 10 images here. Add at least 10 more images of your own!
-
-  // To track which imgs' indices of the original array have already by shown
-  img_idx = [];
-  for (var ii=0; ii < img_fn.length; ii++) { img_idx[ii] = ii; }
-
   imgDir = "./img/"
 
   imgLeftE  = document.getElementById("imgLeft");
@@ -54,47 +58,45 @@ function getRandIntOnRange (a, b) {
   return t;
 }
 
-function showRandImg(imgE) {
-  var maxIdx = fnPool.length - 1;
-  if (maxIdx < 1) {
-    resetPool();
-    maxIdx = fnPool.length - 1;
+var index_1 = getRandIntOnRange(0, (fnPool.length)-1);
+var index_2 = getRandIntOnRange(0, (fnPool.length)-1);
+
+function showRandImg() {
+  while (index_1 === index_2) {
+    index_2 = getRandIntOnRange(0, (fnPool.length)-1);
   }
-
-  var idx = getRandIntOnRange(0, maxIdx);
-  imgE.src = imgDir + fnPool[idx];
-   // Extend object to have an property that holds idx w.r.t. original fn array
-  imgE.idxOrig = idxPool[idx];
-
-  // Rmove chosen img filename. ( Note: this is faster than using splice(). )
-  fnPool[idx] = fnPool[maxIdx];
-  fnPool.pop();
-  idxPool[idx]= idxPool[maxIdx];
-  idxPool.pop();
+imgLeftE.src = imgDir + fnPool[index_1].img_name;
+// Extend object to have an property that holds idx w.r.t. original fn array
+imgRightE.src =  imgDir +  fnPool[index_2].img_name;
+if (index_1 < index_2) {
+  fnPool.splice(index_2, 1)
+} else {
+  fnPool.splice(index_1, 1)
+}
 }
 
 function selectImg() {
   if (voteAllowed) {
     resetImgs();
     this.className = "imgPicked";
-    idxSelect = this.idxOrig;
-  }
+    if (this.src == imgDir + fnPool[index_1].img_name) {
+    idxSelect = index_1;
+  } else
+  idxSelect = index_2;
+}
 }
 
 function recordVote() {
-  if (idxSelect > -1) {
+  if (idxSelect == index_1) {
     console.log("voted. idxSelect="+idxSelect);
+    fnPool[index_1].vote++;
     voteAllowed = false;
     btnVote.style.visibility = "hidden";
     showChart();
   }
-}
+}*/
 
 function showChart() {
-  // The charting code here is just a placeholder, and is NOT the best way to
-  // show votes or relative popularity. Improve the code below to generate more
-  // easily understandable charts.
-
   console.log("showChart()");
   var fnL = img_fn[imgLeftE.idxOrig];
   var fnR = img_fn[imgRightE.idxOrig];
@@ -105,47 +107,43 @@ function showChart() {
     labels: [labelL, labelR],
     datasets: [
       { label: "Raw votes",
-        fillColor: "rgba(220,220,220,0.5)",
-        strokeColor: "rgba(220,220,220,0.8)",
-        highlightFill: "rgba(220,220,220,0.75)",
-        highlightStroke: "rgba(220,220,220,1)",
-        data: [5, 2] // Bogus data -- use your vote counts instead
-      },
-      { label: "Percentage split",
-        fillColor: "rgba(151,187,205,0.5)",
-        strokeColor: "rgba(151,187,205,0.8)",
-        highlightFill: "rgba(151,187,205,0.75)",
-        highlightStroke: "rgba(151,187,205,1)",
-        data: [5/(5+2), 2/(5+2)]
-      }
-    ]
-  };
+      fillColor: "rgba(220,220,220,0.5)",
+      strokeColor: "rgba(220,220,220,0.8)",
+      highlightFill: "rgba(220,220,220,0.75)",
+      highlightStroke: "rgba(220,220,220,1)",
+      data: [5, 2] // Bogus data -- use your vote counts instead
+    },
+    { label: "Percentage split",
+    fillColor: "rgba(151,187,205,0.5)",
+    strokeColor: "rgba(151,187,205,0.8)",
+    highlightFill: "rgba(151,187,205,0.75)",
+    highlightStroke: "rgba(151,187,205,1)",
+    data: [5/(5+2), 2/(5+2)]
+  }
+]
+};
 
-  // This call to create the chart does not include options as an arg. Modify
-  // this to use options that make the labels, colors, etc.  match the look and
-  // feel of the rest of your web page.
-  //
-  // Options (see www.chartjs.org/docs/) should look similar to this:
-  //
-  //  { //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-  //    scaleBeginAtZero : true,
-  //
-  //    //Boolean - Whether grid lines are shown across the chart
-  //    scaleShowGridLines : true,
-  //
-  //    ... and so on...
-  myChartObj = new Chart(ctx).Bar(data);
+// This call to create the chart does not include options as an arg. Modify
+// this to use options that make the labels, colors, etc.  match the look and
+// feel of the rest of your web page.
+//
+// Options (see www.chartjs.org/docs/) should look similar to this:
+//
+//  { //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+//    scaleBeginAtZero : true,
+//
+//    //Boolean - Whether grid lines are shown across the chart
+//    scaleShowGridLines : true,
+//
+//    ... and so on...
+myChartObj = new Chart(ctx).Bar(data);
 
-
-  /*** !! Insert code HERE to draw your chart and make it visible !! ***/
-
-
-  btnNew.style.display = "inline";
-  btnNew.style.visibility = "visible";
+btnNew.style.display = "inline";
+btnNew.style.visibility = "visible";
 }
 
 function newPair() {
-  console.log("newPair()");  
+  console.log("newPair()");
   btnNew.style.visibility = "hidden";
   btnVote.style.visibility = "visible";
 
@@ -158,7 +156,7 @@ function newPair() {
 
 
   if (fnPool.length < 2) {
-    console.log("Not enough images left. Resetting pool");  
+    console.log("Not enough images left. Resetting pool");
     resetPool();
   }
 

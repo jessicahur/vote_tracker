@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vote Tracker: Food</title>
+  <link rel="stylesheet" href="style.css"></link>
+</head>
+
+<body>
+<h1>Vote Tracker: Food</h1>
+
+<p>Welcome to THE food voting website by EatBeansFromACan.org, the
+world's leading authority on selecting foods that taste great!</p>
+
+<p>Please highlight one of the folowing two images, then click the
+&quot;Vote&quot; button</p>
+
+<div id="divImgs">
+  <div><img id="imgLeft" class="imgNormal">
+       <img id="imgRight" class="imgNormal">
+  </div>
+  <button id="btnVote">Vote</button>
+  <br><button id="btnNew">New pair</button>
+</div>
+
+<div id="divStats">
+  <canvas id="myChart" width="600" height="300"> </canvas>
+</div>
+
+</body>
+
+<script src="vote.js"></script>
+<script src="Chart.min.js"></script>
+</html>

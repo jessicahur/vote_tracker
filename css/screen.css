@@ -1,6 +1,6 @@
 
 body {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Coming Soon", cursive;
 	margin: 0;
 	background-color: #ECF0F1;
 }
@@ -34,30 +34,30 @@ p, ul {
 }
 
 img {
-	width: 25%;
-	height: 25%;
-	background-position: 50% 50%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 30%;
+	height: 30%;
 	background-repeat: no-repeat;
 	background-size: cover;
-  margin: 0 auto;
 }
-
-#imgLeft{
-	float: left;
-}
-
 .imgNormal {
   border: 5px solid rgba(0,0,0, 0.0);
 }
 .imgPicked {
   border: 5px solid rgba(52,152,219,0.5);
 }
-
-button{
-	position: relative;
+#divStats {
 	display: block;
-	text-align: center;
-	margin: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
+button{
+	border: none;
+	display: block;
+	margin: 0 auto;
+	width:150px;
 }
 button:hover{
 	background-color: #3498DB;
@@ -67,7 +67,7 @@ button:active{
 	background-color: #E74C3C;
 }
 
-#btnVote{
+/*#btnVote{
   font-size: 2rem;
   margin-top: 10px;
   style: inset;
@@ -75,8 +75,10 @@ button:active{
 
 #btnNew{
   display: none;
-
-}
+  font-size: 2rem;
+  margin-top: 10px;
+  style: inset;
+}*/
 
 code {
 	font-size: 1.2727em;
@@ -107,9 +109,6 @@ iframe {
 	border-top: 1px dotted #bbb;
 	padding-top: 1.5em;
 }
-
-/* minor responsive adjustments */
-
 .footer {
 	border-top: 1px dotted #aaa;
 }

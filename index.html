@@ -1,33 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-  <title>Vote Tracker: Food</title>
-  <link rel="stylesheet" href="style.css"></link>
+	<title>Vote for your favorite foods!</title>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<!-- a grid framework in 250 bytes? are you kidding me?! -->
+	<link rel="stylesheet" href="css/grid.css">
+
+	<!-- all the important responsive layout stuff -->
+	<style>
+		.container { max-width: 90em; }
+
+		/* you only need width to set up columns; all columns are 100%-width by default, so we start
+		   from a one-column mobile layout and gradually improve it according to available screen space */
+
+		@media only screen and (min-width: 34em) {
+			.feature, .info { width: 50%; }
+		}
+
+		@media only screen and (min-width: 54em) {
+			.content { width: 66.66%; }
+			.sidebar { width: 33.33%; }
+			.info    { width: 100%;   }
+		}
+
+		@media only screen and (min-width: 76em) {
+			.content { width: 58.33%; } /* 7/12 */
+			.sidebar { width: 41.66%; } /* 5/12 */
+			.info    { width: 50%;    }
+		}
+	</style>
+
+	<!-- general boring stuff and some visual tweaks -->
+	<link rel="stylesheet" href="css/screen.css">
+
 </head>
-
 <body>
-<h1>Vote Tracker: Food</h1>
 
-<p>Welcome to THE food voting website by EatBeansFromACan.org, the
-world's leading authority on selecting foods that taste great!</p>
+<div class="container">
 
-<p>Please highlight one of the folowing two images, then click the
-&quot;Vote&quot; button</p>
+	<div class="row col">
+		<h1>Vote for your favorite foods!</h1>
+	</div>
 
-<div id="divImgs">
-  <div><img id="imgLeft" class="imgNormal">
-       <img id="imgRight" class="imgNormal">
-  </div>
-  <button id="btnVote">Vote</button>
-  <br><button id="btnNew">New pair</button>
+	<div class="row">
+		<div class="col content">
+
+			<div class="row">
+				 <h2>Please click the vote button</h2>
+				 <img id="imgLeft" class="imgNormal">
+				 <img id="imgRight" class="imgNormal">
+				 <button id="btnVote">Vote</button>
+				 <button id="btnNew">New pair</button>
+			</div>
+		</div>
+
+		<div class="col sidebar">
+
+			<h2>Voting Stats</h2>
+			<div id="divStats">
+ 				<canvas id="myChart" width="600" height="300"> </canvas>
+			</div>
+		</div>
+
+			<p class="social">
+				<iframe src="http://ghbtns.com/github-btn.html?user=mourner&amp;repo=dead-simple-grid&amp;type=watch&amp;count=true" width="84" height="20"></iframe>
+		</div>
+	</div>
 </div>
-
-<div id="divStats">
-  <canvas id="myChart" width="600" height="300"> </canvas>
-</div>
-
-</body>
-
 <script src="v.js"></script>
 <script src="Chart.min.js"></script>
+</body>
 </html>

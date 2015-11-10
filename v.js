@@ -106,7 +106,7 @@ function newPair() {
   console.log("newPair()");
   btnNew.style.visibility = "hidden";
   btnVote.style.visibility = "visible";
-  if (myChartObj) { delete myChartObj; }
+  if (myChartObj) { myChartObj.destroy(); }
   if (fnPool.length < 2) {
     console.log("Not enough images left. Resetting pool");
     resetPool();

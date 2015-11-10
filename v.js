@@ -1,8 +1,8 @@
-showRandImg();
-global_init();
-resetPool();
-
-var img_fn = ["blueMarinatedTurkey.jpg", "condimentSprays.jpg", "cornDogs.jpg", "cranberryCandles.jpg", "frozenShrimp.jpg", "frozenWhatAreThese.jpg", "heatedSoda.jpg", "jelloMayoTurkey.jpg", "pastaOnionsCandy.jpg", "whipcreamSoup.jpg"];
+var img_fn = ["blueMarinatedTurkey.jpg", "condimentSprays.jpg", "cornDogs.jpg",
+ "cranberryCandles.jpg", "frozenShrimp.jpg", "frozenWhatAreThese.jpg", "heatedSoda.jpg",
+ "jelloMayoTurkey.jpg", "pastaOnionsCandy.jpg", "whipcreamSoup.jpg",
+"BotChien.jpg", "BunBoHue.jpg", "OrangeChick.jpg", "StirfriedVeggie.jpg", "VNpancake.jpg",
+"bellPeper.jpg", "bunRieu.jpg", "chickenSalad.jpg", "kimbap.jpg", "tteokbokki2.jpg"];
 imgDir = "./img/"
 var fnPool = [];
 var working_array = [];
@@ -24,10 +24,6 @@ imgRightE.addEventListener("mouseover", selectImg);
 btnVote.addEventListener("click", recordVote);
 btnNew.addEventListener("click", newPair);
 
-
-var index_1 = getRandIntOnRange(0, (fnPool.length)-1);
-var index_2 = getRandIntOnRange(0, (fnPool.length)-1);
-
 function resetImgs() {
   voteAllowed = true;
   imgLeftE.className  = "imgNormal";
@@ -38,6 +34,7 @@ function resetPool() { // Once all images have been shown, start over
   resetImgs();
   // Slice() forces copy by value (doesn't just create a reference)
   if (myChartObj) { delete myChartObj; }
+  fnPool  = working_array.slice();
 }
 
 function img_obj (img_name, vote) {
@@ -54,7 +51,6 @@ function global_init() {
   fnPool  = working_array.slice();
 }
 
-/**/
 function getRandIntOnRange (a, b) {
   var r = Math.random();
   var t = a + Math.floor(r * (b-a+1));
@@ -62,24 +58,21 @@ function getRandIntOnRange (a, b) {
 }
 
 function showRandImg() {
-  if (index_1 === index_2) {
+  index_1 = getRandIntOnRange(0, (fnPool.length)-1);
+  index_2 = getRandIntOnRange(0, (fnPool.length)-1);
+
+while (index_1 === index_2) {
     index_2 = getRandIntOnRange(0, (fnPool.length)-1);
   }
   imgLeftE.src = imgDir + fnPool[index_1].img_name;
   imgRightE.src =  imgDir +  fnPool[index_2].img_name;
 }
-/*if (index_1 < index_2) {
-fnPool.splice(index_2, 1)
-} else {
-fnPool.splice(index_1, 1)
-}
 
-}*/
 function selectImg() {
   if (voteAllowed) {
     resetImgs();
     this.className = "imgPicked";
-    if (this.src == imgDir + fnPool[index_1].img_name) {
+    if (imgLeftE.className === "imgPicked") {
       idxSelect = index_1;
     } else
     idxSelect = index_2;
@@ -98,27 +91,63 @@ function recordVote() {
     voteAllowed = false;
     btnVote.style.visibility = "hidden";
     showChart();
+
   }
+  if (index_1 < index_2) {
+  fnPool.splice(index_2, 1)
+  fnPool.splice(index_1, 1)
+  } else {
+  fnPool.splice(index_1, 1)
+  fnPool.splice(index_2, 1)
+  }
+  console.log(fnPool)
 }
 function newPair() {
   console.log("newPair()");
   btnNew.style.visibility = "hidden";
   btnVote.style.visibility = "visible";
-
-
-  /*** !! Insert code HERE to hide your chart !! ***/
-
-  // This might correctly free some memory, but it doesn't wipe or hide the
-  // graphic that is "cached" in your <canvas>
   if (myChartObj) { delete myChartObj; }
-
-
   if (fnPool.length < 2) {
     console.log("Not enough images left. Resetting pool");
     resetPool();
   }
-
   voteAllowed = true;
   showRandImg(imgLeftE);
   showRandImg(imgRightE);
 }
+
+function showChart() {
+  console.log("showChart()");
+  var fnL = fnPool[index_1].img_name;
+  var fnR = fnPool[index_2].img_name;;
+  var labelL = fnL.split(".")[0];
+  var labelR = fnR.split(".")[0];
+
+  var data = {
+    labels: [labelL, labelR],
+    datasets: [
+      { label: "Raw votes",
+      fillColor: "rgba(220,220,220,0.5)",
+      strokeColor: "rgba(220,220,220,0.8)",
+      highlightFill: "rgba(220,220,220,0.75)",
+      highlightStroke: "rgba(220,220,220,1)",
+      data: [ fnPool[index_1].vote, fnPool[index_2].vote] // Bogus data -- use your vote counts instead
+    },
+    { label: "Percentage split",
+    fillColor: "rgba(151,187,205,0.5)",
+    strokeColor: "rgba(151,187,205,0.8)",
+    highlightFill: "rgba(151,187,205,0.75)",
+    highlightStroke: "rgba(151,187,205,1)",
+    data: [fnPool[index_1].vote/(fnPool[index_1].vote+fnPool[index_2].vote)*100, fnPool[index_2].vote/(fnPool[index_1].vote+fnPool[index_2].vote)*100]
+  }
+]
+};
+myChartObj = new Chart(ctx).Bar(data);
+
+btnNew.style.display = "inline";
+btnNew.style.visibility = "visible";
+}
+
+global_init();
+resetPool();
+showRandImg();

@@ -1,5 +1,5 @@
 
-function resetImgs() {
+/*function resetImgs() {
   voteAllowed = true;
   imgLeftE.className  = "imgNormal";
   imgRightE.className = "imgNormal";
@@ -10,7 +10,7 @@ function resetPool() { // Once all images have been shown, start over
   // Slice() forces copy by value (doesn't just create a reference)
   if (myChartObj) { delete myChartObj; }
 }
-/*working_array = [];
+working_array = [];
 
 fnPool  = working_array.slice();
 
@@ -94,7 +94,7 @@ function recordVote() {
     btnVote.style.visibility = "hidden";
     showChart();
   }
-}*/
+}
 
 function showChart() {
   console.log("showChart()");
@@ -122,36 +122,12 @@ function showChart() {
   }
 ]
 };
-
-// This call to create the chart does not include options as an arg. Modify
-// this to use options that make the labels, colors, etc.  match the look and
-// feel of the rest of your web page.
-//
-// Options (see www.chartjs.org/docs/) should look similar to this:
-//
-//  { //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-//    scaleBeginAtZero : true,
-//
-//    //Boolean - Whether grid lines are shown across the chart
-//    scaleShowGridLines : true,
-//
-//    ... and so on...
 myChartObj = new Chart(ctx).Bar(data);
 
 btnNew.style.display = "inline";
 btnNew.style.visibility = "visible";
 }
 
-function newPair() {
-  console.log("newPair()");
-  btnNew.style.visibility = "hidden";
-  btnVote.style.visibility = "visible";
-
-
-  /*** !! Insert code HERE to hide your chart !! ***/
-
-  // This might correctly free some memory, but it doesn't wipe or hide the
-  // graphic that is "cached" in your <canvas>
   if (myChartObj) { delete myChartObj; }
 
 
@@ -169,3 +145,4 @@ global_init();
 
 showRandImg(imgLeftE);
 showRandImg(imgRightE);
+*/

@@ -6,12 +6,12 @@ var img_fn = ["blueMarinatedTurkey.jpg", "condimentSprays.jpg", "cornDogs.jpg",
 imgDir = "./img/"
 var fnPool = [];
 var working_array = [];
-var imgLeftE  = document.getElementById("imgLeft");
-var imgRightE = document.getElementById("imgRight");
-var btnVote   = document.getElementById("btnVote");
-var btnNew    = document.getElementById("btnNew");
-var divStats  = document.getElementById("divStats");
-var myChart   = document.getElementById("myChart");
+var imgLeftE  = $('#imgLeft')[0];
+var imgRightE = $('#imgRight')[0];
+var btnVote   = $('#btnVote')[0];
+var btnNew    = $('#btnNew')[0];
+var divStats  = $("#divStats")[0];
+var myChart   = $("#myChart")[0];
 
 var ctx = myChart.getContext("2d");
 var myChartObj = 0;
@@ -106,7 +106,7 @@ function newPair() {
   console.log("newPair()");
   btnNew.style.visibility = "hidden";
   btnVote.style.visibility = "visible";
-  if (myChartObj) { delete myChartObj; }
+  if (myChartObj) { myChartObj.destroy(); }
   if (fnPool.length < 2) {
     console.log("Not enough images left. Resetting pool");
     resetPool();

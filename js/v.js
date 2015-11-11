@@ -6,6 +6,7 @@ var img_fn = ["blueMarinatedTurkey.jpg", "condimentSprays.jpg", "cornDogs.jpg",
 var imgDir = "./img/"
 var fnPool = [];
 var working_array = [];
+var intermediate = [];
 var imgLeftE  = $('#imgLeft')[0];
 var imgRightE = $('#imgRight')[0];
 var btnVote   = $('#btnVote')[0];
@@ -34,7 +35,8 @@ function resetPool() { // Once all images have been shown, start over
   resetImgs();
   // Slice() forces copy by value (doesn't just create a reference)
   if (myChartObj) { myChartObj.destroy(); }
-  fnPool  = working_array.slice();
+  fnPool  = intermediate.slice();
+  intermediate = [];
 }
 
 function img_obj (img_name, vote) {
@@ -48,6 +50,7 @@ function global_init() {
     working_array.push(new img_obj(img_fn[jj], vote));
     console.log(working_array);
   }
+  intermediate = working_array.slice();
   /*fnPool  = working_array.slice();*/
 }
 
@@ -95,11 +98,16 @@ function recordVote() {
 
   }
   if (index_1 < index_2) {
-    fnPool.splice(index_2, 1)
-    fnPool.splice(index_1, 1)
+    var temp1, temp2;
+    temp1 = fnPool.splice(index_2, 1);
+    intermediate.push(temp1[0]);
+    temp2 = fnPool.splice(index_1, 1);
+    intermediate.push(temp2[0]);
   } else {
-    fnPool.splice(index_1, 1)
-    fnPool.splice(index_2, 1)
+    temp1 = fnPool.splice(index_1, 1);
+    intermediate.push(temp1[0]);
+    temp2 = fnPool.splice(index_2, 1);
+    intermediate.push(temp2[0]);
   }
   console.log(fnPool)
 }
@@ -111,6 +119,9 @@ function newPair() {
   if (myChartObj) { myChartObj.destroy(); }
   if (fnPool.length < 2) {
     console.log("Not enough images left. Resetting pool");
+    if (fnPool.length===1){
+      intermediate.push(fnPool[0]);
+    }
     resetPool();
   }
   voteAllowed = true;

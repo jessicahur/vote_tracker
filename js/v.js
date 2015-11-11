@@ -3,7 +3,7 @@ var img_fn = ["blueMarinatedTurkey.jpg", "condimentSprays.jpg", "cornDogs.jpg",
  "jelloMayoTurkey.jpg", "pastaOnionsCandy.jpg", "whipcreamSoup.jpg",
 "BotChien.jpg", "BunBoHue.jpg", "OrangeChick.jpg", "StirfriedVeggie.jpg", "VNpancake.jpg",
 "bellPeper.jpg", "bunRieu.jpg", "chickenSalad.jpg", "kimbap.jpg", "tteokbokki2.jpg"];
-imgDir = "./img/"
+var imgDir = "./img/"
 var fnPool = [];
 var working_array = [];
 var imgLeftE  = $('#imgLeft')[0];
@@ -33,7 +33,7 @@ function resetImgs() {
 function resetPool() { // Once all images have been shown, start over
   resetImgs();
   // Slice() forces copy by value (doesn't just create a reference)
-  if (myChartObj) { delete myChartObj; }
+  if (myChartObj) { myChartObj.destroy(); }
   fnPool  = working_array.slice();
 }
 
@@ -48,7 +48,7 @@ function global_init() {
     working_array.push(new img_obj(img_fn[jj], vote));
     console.log(working_array);
   }
-  fnPool  = working_array.slice();
+  /*fnPool  = working_array.slice();*/
 }
 
 function getRandIntOnRange (a, b) {
@@ -78,6 +78,7 @@ function selectImg() {
     idxSelect = index_2;
   }
 }
+
 function recordVote() {
   if (idxSelect == index_1) {
     console.log("voted. idxSelect="+idxSelect);
@@ -94,14 +95,15 @@ function recordVote() {
 
   }
   if (index_1 < index_2) {
-  fnPool.splice(index_2, 1)
-  fnPool.splice(index_1, 1)
+    fnPool.splice(index_2, 1)
+    fnPool.splice(index_1, 1)
   } else {
-  fnPool.splice(index_1, 1)
-  fnPool.splice(index_2, 1)
+    fnPool.splice(index_1, 1)
+    fnPool.splice(index_2, 1)
   }
   console.log(fnPool)
 }
+
 function newPair() {
   console.log("newPair()");
   btnNew.style.visibility = "hidden";
@@ -112,8 +114,8 @@ function newPair() {
     resetPool();
   }
   voteAllowed = true;
-  showRandImg(imgLeftE);
-  showRandImg(imgRightE);
+  showRandImg();
+
 }
 
 function showChart() {

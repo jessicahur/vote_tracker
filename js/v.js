@@ -35,12 +35,9 @@ function resetPool() { // Once all images have been shown, start over
   resetImgs();
   // Slice() forces copy by value (doesn't just create a reference)
   if (myChartObj) { myChartObj.destroy(); }
-<<<<<<< HEAD
   fnPool  = working_array.slice();
-=======
   fnPool  = intermediate.slice();
   intermediate = [];
->>>>>>> eee1086ab6183fd86751c2ea80128d2f1dc88a9a
 }
 
 function img_obj (img_name, vote) {
@@ -54,10 +51,7 @@ function global_init() {
     working_array.push(new img_obj(img_fn[jj], vote));
     console.log(working_array);
   }
-<<<<<<< HEAD
-=======
   intermediate = working_array.slice();
->>>>>>> eee1086ab6183fd86751c2ea80128d2f1dc88a9a
   /*fnPool  = working_array.slice();*/
 }
 
@@ -105,13 +99,11 @@ function recordVote() {
 
   }
   if (index_1 < index_2) {
-<<<<<<< HEAD
     fnPool.splice(index_2, 1)
     fnPool.splice(index_1, 1)
   } else {
     fnPool.splice(index_1, 1)
     fnPool.splice(index_2, 1)
-=======
     var temp1, temp2;
     temp1 = fnPool.splice(index_2, 1);
     intermediate.push(temp1[0]);
@@ -122,7 +114,6 @@ function recordVote() {
     intermediate.push(temp1[0]);
     temp2 = fnPool.splice(index_2, 1);
     intermediate.push(temp2[0]);
->>>>>>> eee1086ab6183fd86751c2ea80128d2f1dc88a9a
   }
   console.log(fnPool)
 }

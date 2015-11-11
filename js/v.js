@@ -84,38 +84,33 @@ function selectImg() {
 }
 
 function recordVote() {
-  if (idxSelect == index_1) {
-    console.log("voted. idxSelect="+idxSelect);
-    fnPool[index_1].vote++;
-    voteAllowed = false;
-    btnVote.style.visibility = "hidden";
-    showChart();
-  } else {
-    console.log("voted. idxSelect="+idxSelect);
-    fnPool[index_2].vote++;
-    voteAllowed = false;
-    btnVote.style.visibility = "hidden";
-    showChart();
+ if (idxSelect == index_1) {
+   console.log("voted. idxSelect="+idxSelect);
+   fnPool[index_1].vote++;
+   voteAllowed = false;
+   btnVote.style.visibility = "hidden";
+   showChart();
+ } else {
+   console.log("voted. idxSelect="+idxSelect);
+   fnPool[index_2].vote++;
+   voteAllowed = false;
+   btnVote.style.visibility = "hidden";
+   showChart();
 
-  }
-  if (index_1 < index_2) {
-    fnPool.splice(index_2, 1)
-    fnPool.splice(index_1, 1)
-  } else {
-    fnPool.splice(index_1, 1)
-    fnPool.splice(index_2, 1)
-    var temp1, temp2;
-    temp1 = fnPool.splice(index_2, 1);
-    intermediate.push(temp1[0]);
-    temp2 = fnPool.splice(index_1, 1);
-    intermediate.push(temp2[0]);
-  } else {
-    temp1 = fnPool.splice(index_1, 1);
-    intermediate.push(temp1[0]);
-    temp2 = fnPool.splice(index_2, 1);
-    intermediate.push(temp2[0]);
-  }
-  console.log(fnPool)
+ }
+ if (index_1 < index_2) {
+   var temp1, temp2;
+   temp1 = fnPool.splice(index_2, 1);
+   intermediate.push(temp1[0]);
+   temp2 = fnPool.splice(index_1, 1);
+   intermediate.push(temp2[0]);
+ } else {
+   temp1 = fnPool.splice(index_1, 1);
+   intermediate.push(temp1[0]);
+   temp2 = fnPool.splice(index_2, 1);
+   intermediate.push(temp2[0]);
+ }
+ console.log(fnPool)
 }
 
 function newPair() {

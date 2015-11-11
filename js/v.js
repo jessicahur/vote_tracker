@@ -1,8 +1,13 @@
 var img_fn = ["blueMarinatedTurkey.jpg", "condimentSprays.jpg", "cornDogs.jpg",
- "cranberryCandles.jpg", "frozenShrimp.jpg", "frozenWhatAreThese.jpg", "heatedSoda.jpg",
+ "cranberryCandles.jpg", "tteokbokki2.jpg", "frozenWhatAreThese.jpg", "heatedSoda.jpg",
  "jelloMayoTurkey.jpg", "pastaOnionsCandy.jpg", "whipcreamSoup.jpg",
 "BotChien.jpg", "BunBoHue.jpg", "OrangeChick.jpg", "StirfriedVeggie.jpg", "VNpancake.jpg",
-"bellPeper.jpg", "bunRieu.jpg", "chickenSalad.jpg", "kimbap.jpg", "tteokbokki2.jpg"];
+"bellPeper.jpg", "bunRieu.jpg", "chickenSalad.jpg", "kimbap.jpg", "frozenShrimp.jpg"];
+
+var user = {
+  score: 0,
+  count: 1
+}
 var imgDir = "./img/"
 var fnPool = [];
 var working_array = [];
@@ -13,17 +18,28 @@ var btnVote   = $('#btnVote')[0];
 var btnNew    = $('#btnNew')[0];
 var divStats  = $("#divStats")[0];
 var myChart   = $("#myChart")[0];
+var usr_submit = $('#usr_submit')[0];
+var register = $('#register')[0];
+var you_suck = $('#you_suck')[0];
 
 var ctx = myChart.getContext("2d");
 var myChartObj = 0;
+var score_thresh = 50;
 
+register.addEventListener( "click", userReg)
 imgLeftE.addEventListener( "click", selectImg);
 imgRightE.addEventListener("click", selectImg);
-/*imgLeftE.addEventListener( "mouseover", selectImg);
-imgRightE.addEventListener("mouseover", selectImg);*/
-
 btnVote.addEventListener("click", recordVote);
 btnNew.addEventListener("click", newPair);
+
+function userReg () {
+user.their_name =  $('#usr_name').val();
+user.their_city = $('#usr_city').val();
+console.log(user.their_name);
+console.log(user.their_city);
+register.style.visibility="hidden";
+}
+
 
 function resetImgs() {
   voteAllowed = true;
@@ -40,15 +56,17 @@ function resetPool() { // Once all images have been shown, start over
   intermediate = [];
 }
 
-function img_obj (img_name, vote) {
+function img_obj (img_name, vote, score) {
   this.img_name = img_name;
   this.vote = vote;
+  this.score = score;
 }
 
 function global_init() {
+var score_array = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 14, -50];
   for (var jj=0; jj < img_fn.length; jj++) {
     var vote = getRandIntOnRange(2, 50);
-    working_array.push(new img_obj(img_fn[jj], vote));
+    working_array.push(new img_obj(img_fn[jj], vote, score_array[jj]));
     console.log(working_array);
   }
   intermediate = working_array.slice();
@@ -84,19 +102,21 @@ function selectImg() {
 }
 
 function recordVote() {
+    user.count++;
  if (idxSelect == index_1) {
    console.log("voted. idxSelect="+idxSelect);
    fnPool[index_1].vote++;
    voteAllowed = false;
    btnVote.style.visibility = "hidden";
    showChart();
+   user.score+=fnPool[index_1].score;
  } else {
    console.log("voted. idxSelect="+idxSelect);
    fnPool[index_2].vote++;
    voteAllowed = false;
    btnVote.style.visibility = "hidden";
    showChart();
-
+   user.score+=fnPool[index_2].score;
  }
  if (index_1 < index_2) {
    var temp1, temp2;
@@ -111,6 +131,17 @@ function recordVote() {
    intermediate.push(temp2[0]);
  }
  console.log(fnPool)
+ /*winning or consolation prize section*/
+ if (user.count === 15 && user.score < score_thresh) {
+   you_suck.style.visibility = "visible";
+   voteAllowed = false;
+
+ } else if (user.score >= score_thresh) {
+   usr_submit.style.visibility = "visible";
+   vac_input.style.visibility = "visible";
+ }
+ console.log(user.score);
+ console.log(user.count);
 }
 
 function newPair() {

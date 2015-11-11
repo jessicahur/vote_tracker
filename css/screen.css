@@ -53,11 +53,15 @@ img {
 	margin-left: auto;
 	margin-right: auto;
 }
+#vac_input {
+	visibility: hidden;
+}
 button{
 	border: none;
 	display: block;
 	margin: 0 auto;
 	width:150px;
+	height: 30px;
 }
 button:hover{
 	background-color: #3498DB;
@@ -66,7 +70,9 @@ button:hover{
 button:active{
 	background-color: #E74C3C;
 }
-
+#you_suck, #usr_submit {
+	visibility: hidden;
+}
 /*#btnVote{
   font-size: 2rem;
   margin-top: 10px;

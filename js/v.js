@@ -18,8 +18,8 @@ var myChartObj = 0;
 
 imgLeftE.addEventListener( "click", selectImg);
 imgRightE.addEventListener("click", selectImg);
-imgLeftE.addEventListener( "mouseover", selectImg);
-imgRightE.addEventListener("mouseover", selectImg);
+/*imgLeftE.addEventListener( "mouseover", selectImg);
+imgRightE.addEventListener("mouseover", selectImg);*/
 
 btnVote.addEventListener("click", recordVote);
 btnNew.addEventListener("click", newPair);

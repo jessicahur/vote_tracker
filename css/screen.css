@@ -110,6 +110,17 @@ iframe {
 #vac_input {
 	visibility: hidden;
 }
+#map {
+	margin: 0 auto;
+	height: 300px;
+	width: 300px;
+	visibility: hidden;
+	position: fixed;'
+}
+#myChart, #myWeather {
+	width: 400px;
+	height: 400px;
+}
 button{
 	border: none;
 	display: block;

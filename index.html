@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="css/screen.css">
 </head>
 <body>
-
 	<div class="container">
 
 		<div class="row col">
@@ -30,11 +29,15 @@
 			<div class="col sidebar">
 
 				<h2>Voting Stats</h2>
+
 				<div id="divStats">
-					<canvas id="myChart" width="300" height="150"> </canvas>
+					<canvas id="myChart"> </canvas>
+					<div id="map"></div>
 				</div>
+
 				<div id="vac_input">
-					<h1>Here is your amazing prize, all expenses paid.</h1>
+					<p>Here is your amazing prize, all expenses paid.</h1>
+						<canvas id="myWeather"></canvas>
 					<input id="usr_name" type="text" name="name" value="your name"><br>
 					<input id="usr_city" type="text" name="dreamCity" value="your dream city"><br>
 					<input id ="usr_submit" type="submit" value="Submit"><br>
@@ -45,9 +48,8 @@
 
 		</div>
 		<div class="row">
-			<div id="map">
-			</div>
-			<canvas id="myWeather" width="300" height="150"></canvas>
+			<div>
+		</div>
 			</div>
 		</div>
 	</div>
@@ -55,5 +57,7 @@
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/Chart.min.js"></script>
 <script src="js/v.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5t0cE21LxtzvhNzGgbXIzKoUgNCoiq6g&signed_in=true&callback=initMap" async defer>
+</script>
 </body>
 </html>

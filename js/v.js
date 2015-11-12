@@ -47,8 +47,8 @@ var divStats  = $("#divStats")[0];
 var myChart   = $("#myChart")[0];
 var myWeather = $("#myWeather")[0];
 var usr_submit = $('#usr_submit')[0];
-var register = $('#register')[0];
 var you_suck = $('#you_suck')[0];
+//var map = $('#map')[0];
 var barData = {};
 
 // myChart vars
@@ -57,7 +57,6 @@ var ctx1 = myWeather.getContext("2d");
 var myChartObj = 0;
 
 // User interaction
-register.addEventListener( "click", userReg);
 imgLeftE.addEventListener( "click", selectImg);
 imgRightE.addEventListener("click", selectImg);
 btnVote.addEventListener("click", recordVote);
@@ -160,6 +159,7 @@ btnNew.addEventListener("click", newPair);
     // Consolation prize
     if (user.count === 15 && user.score < score_thresh) {
       you_suck.style.visibility = "visible";
+      map.style.visibility = "visible";
       voteAllowed = false;
 
       // Winning prize
@@ -242,7 +242,6 @@ var k2cOffset = 273.15;
     user.their_city = $('#usr_city').val();
     console.log(user.their_name);
     console.log(user.their_city);
-    register.style.visibility="hidden";
 
     barData = {
       labels : ["0","1"],
@@ -277,6 +276,7 @@ var k2cOffset = 273.15;
   .fail ( function() {
     console.log("XHR failed.");
   });
+  map.style.visibility = "visible";
   }
 
   function processResp(rObj) {
@@ -292,7 +292,32 @@ var k2cOffset = 273.15;
     console.log("temp_min=" + temp_min);
     console.log("temp_max=" + temp_max);
   }
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 8,
+      center: {lat: -34.397, lng: 150.644}
+    });
+    var geocoder = new google.maps.Geocoder();
 
+    document.getElementById('usr_submit').addEventListener('click', function() {
+      geocodeAddress(geocoder, map);
+    });
+  }
+  function geocodeAddress(geocoder, resultsMap) {
+    var address = document.getElementById('usr_city').value;
+    geocoder.geocode({'address': address}, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        resultsMap.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+          map: resultsMap,
+          position: results[0].geometry.location
+        });
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+//USER MAP INPUT
 /// Making it ALL happen
 global_init();
 resetPool();

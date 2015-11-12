@@ -10,7 +10,20 @@
  * Dead Simple Grid (c) 2015 Vladimir Agafonkin
 
  *General Sections*/
+ .row .row { margin:  0 -1.5em; }
+ .col      { padding: 0  1.5em; }
 
+ .row:before, .row:after {
+     content: "";
+     display: table;
+ }
+ .row:after { clear: both; }
+
+ @media only screen { .col {
+     float: left;
+     width: 100%;
+     box-sizing: border-box;
+ }}
 body {
 	font-family: "Coming Soon", cursive;
 	margin: 0;
@@ -54,33 +67,6 @@ iframe {
 	border: 0;
 	overflow: hidden;
 }
-/*Voting selection*/
-.imgNormal {
-  border: 5px solid rgba(0,0,0, 0.0);
-}
-.imgPicked {
-  border: 5px solid rgba(52,152,219,0.5);
-}
-#vac_input {
-	visibility: hidden;
-}
-button{
-	border: none;
-	display: block;
-	margin: 0 auto;
-	width:150px;
-	height: 30px;
-}
-button:hover{
-	background-color: #3498DB;
-}
-
-button:active{
-	background-color: #E74C3C;
-}
-#you_suck, #usr_submit {
-	visibility: hidden;
-}
 /*Divs*/
 
 #divStats {
@@ -114,21 +100,33 @@ button:active{
 	border-bottom: 1px dotted #aaa;
 	margin-bottom: 1.5em;
 }
-.row .row {
-  margin:  0 -1.5em;
+/*Voting selection*/
+.imgNormal {
+  border: 5px solid rgba(0,0,0, 0.0);
 }
-.col {
-  padding: 0  1.5em;
+.imgPicked {
+  border: 5px solid rgba(52,152,219,0.5);
+}
+#vac_input {
+	visibility: hidden;
+}
+button{
+	border: none;
+	display: block;
+	margin: 0 auto;
+	width:150px;
+	height: 30px;
+}
+button:hover{
+	background-color: #3498DB;
 }
 
-.row:before, .row:after {
-    content: "";
-    display: table;
+button:active{
+	background-color: #E74C3C;
 }
-.row:after {
-  clear: both;
+#you_suck, #usr_submit {
+	visibility: hidden;
 }
-
 /*Media querries*/
 @media only screen and (min-width: 34em) {
 	p, ul {
@@ -201,12 +199,5 @@ button:active{
 		width: 41.66%;
 		}
 	.info { width: 50%;
-	}
-}
-@media only screen {
-	.col {
-    float: left;
-    width: 100%;
-    box-sizing: border-box;
 	}
 }

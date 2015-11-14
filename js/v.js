@@ -48,13 +48,17 @@ var myChart   = $("#myChart")[0];
 var myWeather = $("#myWeather")[0];
 var usr_submit = $('#usr_submit')[0];
 var you_suck = $('#you_suck')[0];
-//var map = $('#map')[0];
+var map = $('#map')[0];
+var voting = $('#voting')[0];
+var vacation = $('#vacation')[0];
+var consolation = $('#you_suck')[0];
 var barData = {};
 
 // myChart vars
 var ctx = myChart.getContext("2d");
 var ctx1 = myWeather.getContext("2d");
 var myChartObj = 0;
+
 
 // User interaction
 imgLeftE.addEventListener( "click", selectImg);
@@ -86,7 +90,8 @@ btnNew.addEventListener("click", newPair);
   }
 
   function global_init() {
-
+    /*vacation.style.display ="none";*/
+    consolation.style.display = "none";
   //makes the game difficult to win
     var score_array = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 14, -50];
     var vote = getRandIntOnRange(2, 50);
@@ -127,13 +132,12 @@ btnNew.addEventListener("click", newPair);
   }
 
   function recordVote() {
-    btnNew.style.visibility = "visible";
     user.count++;
     if (idxSelect == index_1) {
       console.log("voted. idxSelect="+idxSelect);
       fnPool[index_1].vote++;
       voteAllowed = false;
-      btnVote.style.visibility = "hidden";
+      btnVote.style.visibility= "hidden";
       showChart();
       user.score+=fnPool[index_1].score;
     } else {
@@ -157,16 +161,20 @@ btnNew.addEventListener("click", newPair);
       }
     console.log(fnPool)
 
-    // Consolation prize
+// Consolation prize
     if (user.count === 15 && user.score < score_thresh) {
-      you_suck.style.visibility = "visible";
-      map.style.visibility = "visible";
-      voteAllowed = false;
+      $("#prizes").css({"display":"block"});
+      /*voting.style.display = "none";
+      consolation.style.display = "inline";*/
+      $("#btnNew").css({"display":"none"});
+      user.their_city = "Portland Disposal & Recycling";
 
-      // Winning prize
-    } else if (user.score >= score_thresh) {
-      usr_submit.style.visibility = "visible";
-      vac_input.style.visibility = "visible";
+// Winning prize
+    }
+    else if (user.count <=15 && user.score >= score_thresh) {
+      $("#prizes").css({"display":"block"});
+      vacation.style.display ="inline";
+      $("#btnNew").css({"display":"none"});
       }
     console.log(user.score);
     console.log(user.count);
@@ -239,13 +247,12 @@ var k2cOffset = 273.15;
     return (x - k2cOffset) * 1.8 + 32;
   }
   function userReg () {
-    user.their_name =  $('#usr_name').val();
-    user.their_city = $('#usr_city').val();
+    user.their_city = $('#address').val();
     console.log(user.their_name);
     console.log(user.their_city);
 
     barData = {
-      labels : ["0","1"],
+      labels : ["Low temperature","High temperature"],
 
       datasets : [{ fillColor : "rgba(220,220,220,0.5)",
                     strokeColor : "rgba(220,220,220,0.8)",
@@ -258,7 +265,9 @@ var k2cOffset = 273.15;
                     highlightFill : "rgba(151,187,205,0.75)",
                     highlightStroke : "rgba(151,187,205,1)",
                     data : [temp_max[0]]}
-                  ]}
+                  ]
+                }
+
 
   //AJAX STUFF
   $.ajax(
@@ -277,7 +286,6 @@ var k2cOffset = 273.15;
   .fail ( function() {
     console.log("XHR failed.");
   });
-  map.style.visibility = "visible";
   }
 
   function processResp(rObj) {
@@ -293,33 +301,52 @@ var k2cOffset = 273.15;
     console.log("temp_min=" + temp_min);
     console.log("temp_max=" + temp_max);
   }
-  function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
-      center: {lat: -34.397, lng: 150.644}
-    });
-    var geocoder = new google.maps.Geocoder();
+//USER MAP INP
+  var panorama;
 
-    document.getElementById('usr_submit').addEventListener('click', function() {
-      geocodeAddress(geocoder, map);
-    });
+  function initMap() {
+   map = new google.maps.Map(document.getElementById('map'), {
+     zoom: 8,
+     center: {lat: -34.397, lng: 150.644}
+   });
+   geocoder = new google.maps.Geocoder();
+
+   document.getElementById('submit').addEventListener('click', function() {
+     geocodeAddress(geocoder, map);
+     map.setStreetView(panorama);
+   });
   }
+
   function geocodeAddress(geocoder, resultsMap) {
-    var address = document.getElementById('usr_city').value;
-    geocoder.geocode({'address': address}, function(results, status) {
-      if (status === google.maps.GeocoderStatus.OK) {
-        resultsMap.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-          map: resultsMap,
-          position: results[0].geometry.location
-        });
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
-    });
+   address = document.getElementById('address').value;
+   geocoder.geocode({'address': address}, function(results, status) {
+     if (status === google.maps.GeocoderStatus.OK) {
+       console.log(results);
+       resultsMap.setCenter(results[0].geometry.location);
+
+       panorama = new google.maps.StreetViewPanorama(
+       document.getElementById('pano'), {
+         position: {lat:results[0].geometry.location.lat(), lng:results[0].geometry.location.lng()},
+         pov: {
+           heading: 34,
+           pitch: 10
+         }
+       });
+       marker = new google.maps.Marker({
+         map: resultsMap,
+         position: results[0].geometry.location
+       });
+     } else {
+       alert('Geocode was not successful for the following reason: ' + status);
+     }
+   });
   }
-//USER MAP INPUT
 /// Making it ALL happen
 global_init();
 resetPool();
 showRandImg();
+
+//Claiming winning prize
+$("#submit").on("click",initMap);
+$("#submit").on("click", userReg);
+

@@ -111,19 +111,29 @@ iframe {
 .imgPicked {
   border: 5px solid rgba(52,152,219,0.5);
 }
-#vac_input {
+#prizes{
+	display: none;
+	text-align: center;
+	width: 100%;
+}
+#vacation {
+	display: none;
+	width: 95%;
+	background-color: rgba(228,143,148,0.5);
+}
+#consolation{
 	display: none;
 }
 #map {
 	margin: 0 auto;
 	height: 300px;
 	width: 300px;
-	visibility: hidden;
-	position: fixed;
+	/*visibility: hidden;
+	position: fixed;*/
 }
 #myChart, #myWeather {
-	width: 400px;
-	height: 400px;
+	width: 400px !important;
+	height: 400px !important;
 }
 button{
 	float: center;
@@ -135,6 +145,9 @@ button{
 #btnNew{
 	visibility: hidden;
 
+}
+input{
+	display: block;
 }
 button:hover{
 	background-color: #3498DB;

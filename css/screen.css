@@ -42,6 +42,7 @@ h1 {
 h2 {
 	font-size: 1.4em;
 	text-align: center;
+	margin: 0 auto 5px;
 }
 h2, h3, h4 {
 	margin-top: 0;
@@ -55,7 +56,7 @@ p, ul {
 	margin: 0 0 1.5em;
 }
 img {
-	display: block;
+	/*display: block;*/
 	margin-left: auto;
 	margin-right: auto;
 	width: 30%;
@@ -111,7 +112,7 @@ iframe {
   border: 5px solid rgba(52,152,219,0.5);
 }
 #vac_input {
-	visibility: hidden;
+	display: none;
 }
 #map {
 	margin: 0 auto;
@@ -125,15 +126,15 @@ iframe {
 	height: 400px;
 }
 button{
-	border: none;
-	position: absolute;
-	/*display: block;*/
-	margin: 0 auto;
-	width:150px;
+	float: center;
+	padding: 0;
+	border: solid;
+	width:  150px;
 	height: 30px;
 }
 #btnNew{
 	visibility: hidden;
+
 }
 button:hover{
 	background-color: #3498DB;

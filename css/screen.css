@@ -115,7 +115,7 @@ iframe {
 	height: 300px;
 	width: 300px;
 	visibility: hidden;
-	position: fixed;'
+	position: fixed;
 }
 #myChart, #myWeather {
 	width: 400px;

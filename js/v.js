@@ -127,6 +127,7 @@ btnNew.addEventListener("click", newPair);
   }
 
   function recordVote() {
+    btnNew.style.visibility = "visible";
     user.count++;
     if (idxSelect == index_1) {
       console.log("voted. idxSelect="+idxSelect);

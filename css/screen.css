@@ -82,6 +82,9 @@ iframe {
 .footer {
 	padding-top: 1.5em;
 }
+.row{
+	text-align: center;
+}
 .desc {
 	color: #888;
 }
@@ -123,10 +126,14 @@ iframe {
 }
 button{
 	border: none;
-	display: block;
+	position: absolute;
+	/*display: block;*/
 	margin: 0 auto;
 	width:150px;
 	height: 30px;
+}
+#btnNew{
+	visibility: hidden;
 }
 button:hover{
 	background-color: #3498DB;

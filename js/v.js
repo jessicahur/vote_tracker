@@ -162,8 +162,8 @@ btnNew.addEventListener("click", newPair);
     console.log(fnPool)
 
 // Consolation prize
-    if (user.count === 15 && user.score < score_thresh) {
-      $("#prizes").css({"display":"block"});
+    if (user.count >= 15 && user.score < score_thresh) {
+      $("#prizes").css({"display": "block"});
       /*voting.style.display = "none";
       consolation.style.display = "inline";*/
       $("#btnNew").css({"display":"none"});
@@ -172,7 +172,7 @@ btnNew.addEventListener("click", newPair);
 // Winning prize
     }
     else if (user.count <=15 && user.score >= score_thresh) {
-      $("#prizes").css({"display":"block"});
+      $("#prizes").css({"display": "block"});
       vacation.style.display ="inline";
       $("#btnNew").css({"display":"none"});
       }

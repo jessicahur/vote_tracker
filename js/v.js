@@ -164,6 +164,7 @@ btnNew.addEventListener("click", newPair);
 // Consolation prize
     if (user.count >= 15 && user.score < score_thresh) {
       $("#prizes").css({"display": "block"});
+      $("#consolation").css({"display": "block"});
       /*voting.style.display = "none";
       consolation.style.display = "inline";*/
       $("#btnNew").css({"display":"none"});

@@ -119,10 +119,10 @@ iframe {
 #vacation {
 	display: none;
 	width: 95%;
-	background-color: rgba(228,143,148,0.5);
 }
 #consolation{
 	display: none;
+	width: 95%;
 }
 #map {
 	margin: 0 auto;
@@ -130,6 +130,11 @@ iframe {
 	width: 300px;
 	/*visibility: hidden;
 	position: fixed;*/
+}
+
+#pano{
+	width: 300px;
+	height: 300px;
 }
 #myChart, #myWeather {
 	width: 400px !important;

@@ -91,7 +91,7 @@ btnNew.addEventListener("click", newPair);
 
   function global_init() {
     /*vacation.style.display ="none";*/
-    consolation.style.display = "none";
+    /*consolation.style.display = "none";*/
   //makes the game difficult to win
     var score_array = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 14, -50];
     var vote = getRandIntOnRange(2, 50);
@@ -168,12 +168,13 @@ btnNew.addEventListener("click", newPair);
       /*voting.style.display = "none";
       consolation.style.display = "inline";*/
       $("#btnNew").css({"display":"none"});
-      user.their_city = "Portland Disposal & Recycling";
+      user.their_city = "Alaska"; //Need to change this
 
 // Winning prize
     }
     else if (user.count <=15 && user.score >= score_thresh) {
       $("#prizes").css({"display": "block"});
+      $("#vacation").css({"display": "block"});
       vacation.style.display ="inline";
       $("#btnNew").css({"display":"none"});
       }
@@ -350,4 +351,9 @@ showRandImg();
 //Claiming winning prize
 $("#submit").on("click",initMap);
 $("#submit").on("click", userReg);
+
+//Claiming consolation prize
+$("#address").val = user.their_city;
+$("#you_suck").on("click",initMap);
+$("#you_suck").on("click", userReg);
 

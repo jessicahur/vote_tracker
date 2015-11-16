@@ -161,7 +161,7 @@ button:hover{
 button:active{
 	background-color: #E74C3C;
 }
-#you_suck, #usr_submit {
+#usr_submit {
 	visibility: hidden;
 }
 /*Media querries*/

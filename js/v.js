@@ -46,6 +46,7 @@ var btnNew    = $('#btnNew')[0];
 var divStats  = $("#divStats")[0];
 var myChart   = $("#myChart")[0];
 var myWeather = $("#myWeather")[0];
+var pdxWeather= $("#PDXWeather")[0];
 var usr_submit = $('#usr_submit')[0];
 var you_suck = $('#you_suck')[0];
 var map = $('#map')[0];
@@ -57,6 +58,7 @@ var barData = {};
 // myChart vars
 var ctx = myChart.getContext("2d");
 var ctx1 = myWeather.getContext("2d");
+var ctx2 = pdxWeather.getContext("2d");
 var myChartObj = 0;
 
 
@@ -343,6 +345,46 @@ var k2cOffset = 273.15;
      }
    });
   }
+
+function consolationPrize(){
+  barData1 = {
+      labels : ["Low temperature","High temperature"],
+
+      datasets : [{ fillColor : "rgba(220,220,220,0.5)",
+                    strokeColor : "rgba(220,220,220,0.8)",
+                    highlightFill: "rgba(220,220,220,0.75)",
+                    highlightStroke: "rgba(220,220,220,1)",
+                    data : [temp_min[0]]},
+
+                  { fillColor : "rgba(151,187,205,0.5)",
+                    strokeColor : "rgba(151,187,205,0.8)",
+                    highlightFill : "rgba(151,187,205,0.75)",
+                    highlightStroke : "rgba(151,187,205,1)",
+                    data : [temp_max[0]]}
+                  ]
+                }
+
+  $.ajax(
+    { url: "http://api.openweathermap.org/data/2.5/forecast?q=Portland,us&mode=json&appid=997f0723cfa3d466db2b1cdf7bfa37d6",
+    beforeSend: function(xhr) {
+    }
+  })
+  .done( function(respObj) {
+    console.log("respObj = ", respObj);
+    processResp(respObj);
+    barData1.datasets[0].data = temp_min.slice(0,1);
+    barData1.datasets[1].data = temp_max.slice(0,1);
+    window.myBar = new Chart(ctx2).Bar(barData1, {responsive:true});
+    console.log("Done");
+  })
+  .fail ( function() {
+    console.log("XHR failed.");
+  });
+  $("#PDXWeather").css({"display": "block"});
+  $("iframe").css({"display": "block"});
+  $("#you_suck").css({"display": "none"});
+}
+
 /// Making it ALL happen
 global_init();
 resetPool();
@@ -353,7 +395,6 @@ $("#submit").on("click",initMap);
 $("#submit").on("click", userReg);
 
 //Claiming consolation prize
-$("#address").val = user.their_city;
-$("#you_suck").on("click",initMap);
-$("#you_suck").on("click", userReg);
+$("#you_suck").on("click", consolationPrize);
+
 

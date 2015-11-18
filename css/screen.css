@@ -119,27 +119,48 @@ iframe {
 #vacation {
 	display: none;
 	width: 95%;
+	text-align: center;
 }
 #consolation{
 	display: none;
 	width: 95%;
+	text-align: center;
+}
+input{
+	margin-left: 45%;
 }
 #map {
 	margin: 0 auto;
 	height: 300px;
 	width: 300px;
+	float: left;
 	/*visibility: hidden;
 	position: fixed;*/
+}
+
+#street-view{
+	width: 300px;
 }
 
 #pano{
 	width: 300px;
 	height: 300px;
+	float: left;
 }
 #myChart, #myWeather {
 	width: 400px !important;
 	height: 400px !important;
 }
+
+#PDXWeather{
+	display: none;
+	width: 300px !important;
+	height: 300px !important;
+}
+iframe{
+	display: none;
+}
+
 button{
 	float: center;
 	padding: 0;

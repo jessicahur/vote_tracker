@@ -1,15 +1,38 @@
+/*--------------*
+ | Alex   | CF  |
+ | Jessica| 201 |
+ |     ***      |
+ | VOTE TRACKER |
+ *--------------*
 
+ * Thanks:
+ * https://github.com/mourner/dead-simple-grid
+ * Dead Simple Grid (c) 2015 Vladimir Agafonkin
+
+ *General Sections*/
+ .row .row { margin:  0 -1.5em; }
+ .col      { padding: 0  1.5em; }
+
+ .row:before, .row:after {
+     content: "";
+     display: table;
+ }
+ .row:after { clear: both; }
+
+ @media only screen { .col {
+     float: left;
+     width: 100%;
+     box-sizing: border-box;
+ }}
 body {
 	font-family: "Coming Soon", cursive;
 	margin: 0;
 	background-color: #ECF0F1;
 }
-
 #header_svg{
 	width: 80%;
 	margin: 0 10% 0 10%;
 }
-
 a {
 	color: #06f;
 }
@@ -19,6 +42,7 @@ h1 {
 h2 {
 	font-size: 1.4em;
 	text-align: center;
+	margin: 0 auto 5px;
 }
 h2, h3, h4 {
 	margin-top: 0;
@@ -26,15 +50,13 @@ h2, h3, h4 {
 h3, h4 {
 	margin-bottom: 0.5em;
 }
-
 p, ul {
 	font-size: 0.8125em;
 	line-height: 1.5;
 	margin: 0 0 1.5em;
 }
-
 img {
-	display: block;
+	/*display: block;*/
 	margin-left: auto;
 	margin-right: auto;
 	width: 30%;
@@ -42,61 +64,27 @@ img {
 	background-repeat: no-repeat;
 	background-size: cover;
 }
-.imgNormal {
-  border: 5px solid rgba(0,0,0, 0.0);
+iframe {
+	border: 0;
+	overflow: hidden;
 }
-.imgPicked {
-  border: 5px solid rgba(52,152,219,0.5);
-}
+/*Divs*/
+
 #divStats {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 }
-button{
-	border: none;
-	display: block;
-	margin: 0 auto;
-	width:150px;
-}
-button:hover{
-	background-color: #3498DB;
-}
-
-button:active{
-	background-color: #E74C3C;
-}
-
-/*#btnVote{
-  font-size: 2rem;
-  margin-top: 10px;
-  style: inset;
-}
-
-#btnNew{
-  display: none;
-  font-size: 2rem;
-  margin-top: 10px;
-  style: inset;
-}*/
-
-code {
-	font-size: 1.2727em;
-	color: #777;
-}
-iframe {
-	border: 0;
-	overflow: hidden;
-}
-
 .container {
 	margin: 0 auto;
 	max-width: 90em;
 	padding: 1em 0;
 }
-
 .footer {
 	padding-top: 1.5em;
+}
+.row{
+	text-align: center;
 }
 .desc {
 	color: #888;
@@ -116,7 +104,88 @@ iframe {
 	border-bottom: 1px dotted #aaa;
 	margin-bottom: 1.5em;
 }
+/*Voting selection*/
+.imgNormal {
+  border: 5px solid rgba(0,0,0, 0.0);
+}
+.imgPicked {
+  border: 5px solid rgba(52,152,219,0.5);
+}
+#prizes{
+	display: none;
+	text-align: center;
+	width: 100%;
+}
+#vacation {
+	display: none;
+	width: 95%;
+	text-align: center;
+}
+#consolation{
+	display: none;
+	width: 95%;
+	text-align: center;
+}
+input{
+	margin-left: 45%;
+}
+#map {
+	margin: 0 auto;
+	height: 300px;
+	width: 300px;
+	float: left;
+	/*visibility: hidden;
+	position: fixed;*/
+}
 
+#street-view{
+	width: 300px;
+}
+
+#pano{
+	width: 300px;
+	height: 300px;
+	float: left;
+}
+#myChart, #myWeather {
+	width: 400px !important;
+	height: 400px !important;
+}
+
+#PDXWeather{
+	display: none;
+	width: 300px !important;
+	height: 300px !important;
+}
+iframe{
+	display: none;
+}
+
+button{
+	float: center;
+	padding: 0;
+	border: solid;
+	width:  150px;
+	height: 30px;
+}
+#btnNew{
+	visibility: hidden;
+
+}
+input{
+	display: block;
+}
+button:hover{
+	background-color: #3498DB;
+}
+
+button:active{
+	background-color: #E74C3C;
+}
+#usr_submit {
+	visibility: hidden;
+}
+/*Media querries*/
 @media only screen and (min-width: 34em) {
 	p, ul {
 		font-size: 0.875em;
@@ -135,7 +204,6 @@ iframe {
 		font-size: 1.6em;
 	}
 }
-
 @media only screen and (min-width: 54em) {
 	.content {
 		border: none;
@@ -152,7 +220,6 @@ iframe {
 		font-size: 1.7em;
 	}
 }
-
 @media only screen and (min-width: 76em) {
 	.info:first-child {
 		border-right: 1px dotted #aaa;
@@ -162,5 +229,33 @@ iframe {
 	}
 	h2 {
 		font-size: 1.8em;
+	}
+}
+@media only screen and (min-width: 34em) {
+	.feature, .info {
+		width: 50%;
+	}
+}
+
+@media only screen and (min-width: 54em) {
+	.content {
+		width: 66.66%;
+	}
+	.sidebar {
+		width: 33.33%;
+	}
+	.info {
+		width: 100%;
+	}
+}
+
+@media only screen and (min-width: 76em) {
+	.content {
+		width: 58.33%;
+		}
+	.sidebar {
+		width: 41.66%;
+		}
+	.info { width: 50%;
 	}
 }

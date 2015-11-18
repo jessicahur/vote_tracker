@@ -1,73 +1,63 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Vote for your favorite foods!</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-
-	<!-- a grid framework in 250 bytes? are you kidding me?! -->
-	<link rel="stylesheet" href="css/grid.css">
-<link href='https://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
-	<style>
-		.container { max-width: 90em; }
-
-		/* you only need width to set up columns; all columns are 100%-width by default, so we start
-		   from a one-column mobile layout and gradually improve it according to available screen space */
-
-		@media only screen and (min-width: 34em) {
-			.feature, .info { width: 50%; }
-		}
-
-		@media only screen and (min-width: 54em) {
-			.content { width: 66.66%; }
-			.sidebar { width: 33.33%; }
-			.info    { width: 100%;   }
-		}
-
-		@media only screen and (min-width: 76em) {
-			.content { width: 58.33%;} /* 7/12 */
-			.sidebar { width: 41.66%; } /* 5/12 */
-			.info    { width: 50%;    }
-		}
-	</style>
-
-	<!-- general boring stuff and some visual tweaks -->
+	<link href='https://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/screen.css">
-
 </head>
 <body>
+	<div class="container">
 
-<div class="container">
+		<div class="row col">
+			<object id="header_svg" type="image/svg+xml" data="svg/vote.svg">Vote for your favorite foods!</object>
+		</div>
 
-	<div class="row col">
-		<object id="header_svg" type="image/svg+xml" data="svg/vote.svg">Vote for your favorite foods!</object>
-	</div>
+		<div class="row">
+			<div class="col content">
 
-	<div class="row">
-		<div class="col content">
+				<div class="row" id="voting">
+					<h2>Please click the vote button</h2>
+					<img id="imgLeft" class="imgNormal">
+					<img id="imgRight" class="imgNormal">
+          <br />
+					<button id="btnVote">Vote</button>
+          <br />
+					<button id="btnNew">New pair</button>
+				</div>
+			</div>
 
-			<div class="row">
-				 <h2>Please click the vote button</h2>
-				 	<img id="imgLeft" class="imgNormal">
-				 	<img id="imgRight" class="imgNormal">
-				 <button id="btnVote">Vote</button>
-				 <button id="btnNew">New pair</button>
+			<div class="col sidebar">
+				<h2>Voting Stats</h2>
+				<div id="divStats">
+					<canvas id="myChart"> </canvas>
+				</div>
+      </div>
+      <div class="row" id="prizes">
+				<div id="vacation">
+					<p>Here is your amazing prize, all expenses paid. Enter your dream city below and we will take you there!</h1>
+          <br />
+          <input id="address" type="text" name="dreamCity" placeholder="Sydney, NSW"><br>
+          <button id ="submit" type="submit" value="Register">Winning Prize</button><br>
+					<canvas id="myWeather"></canvas>
+          <div id="pano"></div>
+          <div id="map"></div>
+				</div>
+
+        <div id="consolation">
+          <p>Sorry, You did not win a cool vacation but we can send you here: </h1><br>
+          <button id="you_suck" type="submit" value="Consolation Prize">Consolation Prize</button><br />
+          <canvas id="PDXWeather"></canvas>
+          <iframe width="600" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://my.ctrlq.org/maps/#street|1|-21.526530612244898|-1.542857142857143|45.522002|-122.68388600000003"></iframe><br>
+        </div>
 			</div>
 		</div>
-
-		<div class="col sidebar">
-
-			<h2>Voting Stats</h2>
-			<div id="divStats">
- 				<canvas id="myChart" width="300" height="150"> </canvas>
-			</div>
-		</div>
-
-		</div>
 	</div>
-</div>
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/Chart.min.js"></script>
 <script src="js/v.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5t0cE21LxtzvhNzGgbXIzKoUgNCoiq6g&signed_in=true&callback=initMap" async defer></script>
+
 </body>
 </html>

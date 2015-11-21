@@ -33,8 +33,10 @@ var fnPool = [];
 var working_array = [];
 var intermediate = [];
 
-var user = { score: 0, count: 1 }
+var user = { score: 0, count: 0 }
 var score_thresh = 50;
+
+var $voteCount = $("#voteCount");
 
 var imgDir = "./img/"
 
@@ -95,6 +97,8 @@ btnNew.addEventListener("click", newPair);
     /*vacation.style.display ="none";*/
     /*consolation.style.display = "none";*/
   //makes the game difficult to win
+    Count = 15-user.count;
+    $voteCount.text(Count);
     var score_array = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 14, -50];
     var vote = getRandIntOnRange(2, 50);
 
@@ -135,6 +139,8 @@ btnNew.addEventListener("click", newPair);
 
   function recordVote() {
     user.count++;
+    Count = 15-user.count;
+    $voteCount.text(Count);
     if (idxSelect == index_1) {
       console.log("voted. idxSelect="+idxSelect);
       fnPool[index_1].vote++;

@@ -34,9 +34,10 @@ var working_array = [];
 var intermediate = [];
 
 var user = { score: 0, count: 0 }
-var score_thresh = 50;
+var score_thresh = 20;
 
 var $voteCount = $("#voteCount");
+var $voteScore = $("#voteScore");
 
 var imgDir = "./img/"
 
@@ -99,7 +100,8 @@ btnNew.addEventListener("click", newPair);
   //makes the game difficult to win
     Count = 15-user.count;
     $voteCount.text(Count);
-    var score_array = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 14, -50];
+    $voteScore.text(user.score);
+    var score_array = [-2, -1, -4, -1, 4, -5, -2, -7, -2, -3, 3, 5, 7, 10, 9, 5, 6, 3, 8, -10];
     var vote = getRandIntOnRange(2, 50);
 
     for (var jj=0; jj < img_fn.length; jj++) {
@@ -148,6 +150,7 @@ btnNew.addEventListener("click", newPair);
       btnVote.style.visibility= "hidden";
       showChart();
       user.score+=fnPool[index_1].score;
+      $voteScore.text(user.score);
     } else {
       console.log("voted. idxSelect="+idxSelect);
       fnPool[index_2].vote++;
@@ -155,6 +158,7 @@ btnNew.addEventListener("click", newPair);
       btnVote.style.visibility = "hidden";
       showChart();
       user.score+=fnPool[index_2].score;
+      $voteScore.text(user.score);
       }
     if (index_1 < index_2) {
       temp1 = fnPool.splice(index_2, 1);
